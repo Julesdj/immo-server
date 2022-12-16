@@ -6,13 +6,17 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import clientRoutes from "./routes/client.routes.js";
-import salesRoutes from "./routes/sales.routes.js";
 import managementRoutes from "./routes/management.routes.js";
+import productRoutes from "./routes/product.routes.js";
+import salesRoutes from "./routes/sales.routes.js";
 import generalRoutes from "./routes/general.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
 // SEED MOCK DATA
 import User from "./models/user.model.js";
-import { userData } from "./data/mock.data.js";
+import Product from "./models/product.model.js";
+import ProductStat from "./models/productStat.model.js";
+import { userData, dataProduct, dataProductStat } from "./data/mock.data.js";
 
 // CONFIGURATION
 dotenv.config();
@@ -27,11 +31,13 @@ mongoose
         useUnifiedTopology: true,
     })
     .then(
-        () => console.log("Connected to the database successfully."),
+        () => console.log("Connected to the database successfully.")
 
         //RESET THE DATABASE< THEN SEED MOCK DATA FOR TEST PURPOSES
         // db.users.drop(),
-        User.insertMany(userData)
+        // User.insertMany(userData)
+        // Product.insertMany(dataProduct)
+        // ProductStat.insertMany(dataProductStat)
     )
     .catch((err) =>
         console.error("Could not connect to the database.", err.message)
@@ -45,9 +51,11 @@ app.use(morgan("common"));
 app.use(cors());
 
 // ROUTES
-app.use("/clients", clientRoutes);
-app.use("/sales", salesRoutes);
-app.use("/managements", managementRoutes);
-app.use("/generals", generalRoutes);
+app.use("/api/clients", clientRoutes);
+app.use("/api/general", generalRoutes);
+app.use("/api/managements", managementRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/sales", salesRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));
