@@ -16,7 +16,13 @@ import userRoutes from "./routes/user.routes.js";
 import User from "./models/user.model.js";
 import Product from "./models/product.model.js";
 import ProductStat from "./models/productStat.model.js";
-import { userData, dataProduct, dataProductStat } from "./data/mock.data.js";
+import Transaction from "./models/transaction.model.js";
+import {
+    userData,
+    dataProduct,
+    dataProductStat,
+    dataTransaction,
+} from "./data/mock.data.js";
 
 // CONFIGURATION
 dotenv.config();
@@ -38,6 +44,7 @@ mongoose
         // User.insertMany(userData)
         // Product.insertMany(dataProduct)
         // ProductStat.insertMany(dataProductStat)
+        // Transaction.insertMany(dataTransaction)
     )
     .catch((err) =>
         console.error("Could not connect to the database.", err.message)
@@ -51,7 +58,7 @@ app.use(morgan("common"));
 app.use(cors());
 
 // ROUTES
-app.use("/api/clients", clientRoutes);
+app.use("/api/client", clientRoutes);
 app.use("/api/general", generalRoutes);
 app.use("/api/managements", managementRoutes);
 app.use("/api/products", productRoutes);
