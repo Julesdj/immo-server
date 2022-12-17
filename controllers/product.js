@@ -21,6 +21,7 @@ export const getProducts = async (req, res) => {
         res.status(404).json({ message: ex.message });
     }
 };
+
 export const getProductStats = async (req, res) => {
     try {
         const productStats = await ProductStat.find().populate("productId");

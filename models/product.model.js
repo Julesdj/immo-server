@@ -9,7 +9,7 @@ const ProductSchema = new Schema(
         description: String,
         category: String,
         rating: Number,
-        inventory: Number,
+        supply: Number,
     },
     { timestamps: true }
 );

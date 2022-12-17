@@ -9,7 +9,7 @@ const ProductStatSchema = new Schema({
         ref: "Product",
     },
     yearlySalesTotal: Number,
-    yearlyTotalUnitsSold: Number,
+    yearlyTotalSoldUnits: Number,
     year: Number,
     monthlyData: [
         {
