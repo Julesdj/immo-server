@@ -1,3 +1,4 @@
+import getCountryIso3 from "country-iso-2-to-3";
 import User from "../models/user.model.js";
 import Transaction from "../models/transaction.model.js";
 
@@ -45,6 +46,32 @@ export const getTransactions = async (req, res) => {
         // TODO: Set default query parameters automatically if none provided
 
         res.status(200).json({ transactions, total });
+    } catch (ex) {
+        res.status(404).json({ message: ex.message });
+    }
+};
+
+export const getgeography = async (req, res) => {
+    try {
+        const users = await User.find();
+
+        //Converting country ISO code from 2 letters to 3 letters (for Nivo)
+        const mappedLocations = users.reduce((acc, { country }) => {
+            const countryISO3 = getCountryIso3(country);
+            if (!acc[countryISO3]) {
+                acc[countryISO3] = 0;
+            }
+            acc[countryISO3]++;
+            return acc;
+        }, {});
+
+        const formattedLocations = Object.entries(mappedLocations).map(
+            ([country, count]) => {
+                return { id: country, value: count };
+            }
+        );
+
+        res.status(200).json(formattedLocations);
     } catch (ex) {
         res.status(404).json({ message: ex.message });
     }
