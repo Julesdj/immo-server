@@ -63,7 +63,7 @@ app.use(cors());
 // ROUTES
 app.use("/api/client", clientRoutes);
 app.use("/api/general", generalRoutes);
-app.use("/api/managements", managementRoutes);
+app.use("/api/management", managementRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/sales", salesRoutes);
 app.use("/api/users", userRoutes);
