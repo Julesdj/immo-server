@@ -17,11 +17,13 @@ import User from "./models/user.model.js";
 import Product from "./models/product.model.js";
 import ProductStat from "./models/productStat.model.js";
 import Transaction from "./models/transaction.model.js";
+import OverallStat from "./models/overallStat.model.js";
 import {
     userData,
     dataProduct,
     dataProductStat,
     dataTransaction,
+    dataOverallStat,
 } from "./data/mock.data.js";
 
 // CONFIGURATION
@@ -45,6 +47,7 @@ mongoose
         // Product.insertMany(dataProduct)
         // ProductStat.insertMany(dataProductStat)
         // Transaction.insertMany(dataTransaction)
+        // OverallStat.insertMany(dataOverallStat)
     )
     .catch((err) =>
         console.error("Could not connect to the database.", err.message)
