@@ -11,6 +11,7 @@ import productRoutes from "./routes/product.routes.js";
 import salesRoutes from "./routes/sales.routes.js";
 import generalRoutes from "./routes/general.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import authRoutes from "./routes/authn.routes.js";
 
 // SEED MOCK DATA
 import User from "./models/user.model.js";
@@ -70,5 +71,6 @@ app.use("/api/management", managementRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/sales", salesRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));
