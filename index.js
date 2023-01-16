@@ -36,26 +36,23 @@ const app = express();
 
 // MONGOOSE SETUP
 const db = process.env.MONGO_URI;
-mongoose
-    .connect(db, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(
-        () => console.log("Connected to the database successfully.")
 
-        //RESET THE DATABASE< THEN SEED MOCK DATA FOR TEST PURPOSES
-        // db.users.drop(),
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(db);
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+        //SEED MOCK DATA FOR TEST PURPOSES
         // User.insertMany(userData)
         // Product.insertMany(dataProduct)
         // ProductStat.insertMany(dataProductStat)
         // Transaction.insertMany(dataTransaction)
         // OverallStat.insertMany(dataOverallStat)
         // AffiliateStat.insertMany(dataAffiliateStat)
-    )
-    .catch((err) =>
-        console.error("Could not connect to the database.", err.message)
-    );
+    } catch (error) {
+        console.log(error);
+        process.exit(1);
+    }
+};
 
 // MIDDLEWARES
 app.use(express.json());
@@ -73,4 +70,9 @@ app.use("/api/sales", salesRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 
-app.listen(port, () => console.log(`Server running on port: ${port}`));
+//Connect to the database before listening
+connectDB().then(() => {
+    app.listen(port, () => {
+        console.log(`Server running on port: ${port}`);
+    });
+});
